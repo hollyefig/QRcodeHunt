@@ -3,31 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secret Code Scanner</title>
+  <title>QR Code Hunt</title>
+  <!-- ? stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <!-- ? google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;900&family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <h3>Main site</h3>
-
-  <p>Keycode</p>
-  <ul class="keySet">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
-
-  <div class="links">
-    <a href="" class="addKey1" onclick="addKey(1)">Add Key 1</a>
-    <a href="" class="addKey2" onclick="addKey(2)">Add Key 2</a>
-    <a href="" class="addKey3" onclick="addKey(3)">Add Key 3</a>
-    <a href="" class="addKey4" onclick="addKey(4)">Add Key 4</a>
+  <!-- ? TopBar : BEGIN  -->
+  <div class="topBar">
+    <div class="keyWrapper">
+    </div>
   </div>
+  <!-- ? TopBar : END  -->
 
-  <p>QR codes</p>
-  <img src="./IMGs/QRcode1.png" />
+  <!-- ? Wrapper : BEGIN  -->
+  <div class="wrapper">
 
+    <div class="title"></div>
+  </div>
+  <!-- ? Wrapper : END  -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
