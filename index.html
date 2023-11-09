@@ -9,57 +9,47 @@
 
   <p>Main page</p>
   <br>
-  <button id="startScan">Start Scan</button>
+  <input type="file" accept="image/*" capture="environment" id="fileInput" style="display: none;">
+<button id="startScan">Start Scan</button>
 <div id="result"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
 <script>
   document.getElementById('startScan').addEventListener('click', function() {
-    // Check if the browser supports getUserMedia
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      // Access the camera stream
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-          // Create a video element to display the camera stream
-          var video = document.createElement('video');
-          video.srcObject = stream;
-          document.body.appendChild(video);
+    document.getElementById('fileInput').click();
+  });
 
-          // Play the video
-          video.play();
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+    var file = event.target.files[0];
 
-          // Create a canvas to capture the video frames
+    if (file) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
           var canvas = document.createElement('canvas');
           var context = canvas.getContext('2d');
-          video.addEventListener('loadedmetadata', function () {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-          });
+          canvas.width = img.width;
+          canvas.height = img.height;
+          context.drawImage(img, 0, 0, img.width, img.height);
 
-          // Append the canvas to the body
-          document.body.appendChild(canvas);
+          // Get the QR code data from the captured frame
+          var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+          var code = jsQR(imageData.data, imageData.width, imageData.height);
 
-          // Listen for a click on the video to capture a frame
-          video.addEventListener('click', function () {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          // Display the result
+          if (code) {
+            document.getElementById('result').innerText = 'QR Code Detected: ' + code.data;
+          } else {
+            document.getElementById('result').innerText = 'No QR Code detected.';
+          }
+        };
 
-            // Get the QR code data from the captured frame
-            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            var code = jsQR(imageData.data, imageData.width, imageData.height);
+        img.src = e.target.result;
+      };
 
-            // Display the result
-            if (code) {
-              document.getElementById('result').innerText = 'QR Code Detected: ' + code.data;
-            } else {
-              document.getElementById('result').innerText = 'No QR Code detected.';
-            }
-          });
-        })
-        .catch(function (error) {
-          console.error('Error accessing camera:', error);
-        });
-    } else {
-      console.error('getUserMedia is not supported in this browser');
+      reader.readAsDataURL(file);
     }
   });
 </script>
