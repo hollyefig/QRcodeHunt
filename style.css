@@ -63,6 +63,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 1em;
 }
 
 .title {
@@ -72,4 +73,19 @@ body {
   width: 100%;
   text-align: center;
   font-size: 70px;
+  color: var(--normal);
+}
+
+.proceed {
+  background-color: var(--normal);
+  color: var(--light);
+  font-family: "Archivo", sans-serif;
+  font-size: 1.3rem;
+  padding: 1em;
+  border: none;
+  border-radius: 0.9em;
+}
+
+.round1Wrapper {
+  opacity: 0;
 }
