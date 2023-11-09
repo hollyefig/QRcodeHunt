@@ -9,58 +9,7 @@
 
   <p>Main page</p>
   <br>
-  <button id="startScan">Start Scan</button>
-  <div id="result"></div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
-  <script>
-    document.getElementById('startScan').addEventListener('click', function() {
-      // Check if the browser supports getUserMedia
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Access the camera stream
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then(function (stream) {
-            // Create a video element to display the camera stream
-            var video = document.createElement('video');
-            video.srcObject = stream;
-            document.body.appendChild(video);
-  
-            // Play the video
-            video.play();
-  
-            // Create a canvas to capture the video frames
-            var canvas = document.createElement('canvas');
-            var context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-  
-            // Append the canvas to the body
-            document.body.appendChild(canvas);
-  
-            // Listen for a click on the video to capture a frame
-            video.addEventListener('click', function () {
-              context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  
-              // Get the QR code data from the captured frame
-              var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-              var code = jsQR(imageData.data, imageData.width, imageData.height);
-  
-              // Display the result
-              if (code) {
-                document.getElementById('result').innerText = 'QR Code Detected: ' + code.data;
-              } else {
-                document.getElementById('result').innerText = 'No QR Code detected.';
-              }
-            });
-          })
-          .catch(function (error) {
-            console.error('Error accessing camera:', error);
-          });
-      } else {
-        console.error('getUserMedia is not supported in this browser');
-      }
-    });
-  </script>
+  <a href="https://www.example.com" download>Scan QR Code</a>
   <br>
   <img src="./IMGs/stage2.png" />
 
