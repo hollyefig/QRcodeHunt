@@ -29,7 +29,9 @@ body {
   height: var(--topBarHeight);
   padding: 1em;
   border-bottom: 1px solid var(--mediumDark);
-  position: sticky;
+  background-color: var(--dark);
+  position: absolute;
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +47,7 @@ body {
   font-size: 60px;
 }
 
-.keyWrapper .num {
+.keyWrapper .opacity0 {
   opacity: 0;
 }
 
