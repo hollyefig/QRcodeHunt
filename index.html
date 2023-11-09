@@ -9,7 +9,29 @@
 
   <p>Main page</p>
   <br>
-  <input type="file" name="picture" accept="image/*" capture="environment" value="Take photo" />
+  
+<script>
+  // Check if the browser supports getUserMedia
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Access the camera stream
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        // Create a video element to display the camera stream
+        var video = document.createElement('video');
+        video.srcObject = stream;
+        document.body.appendChild(video);
+
+        // Play the video
+        video.play();
+      })
+      .catch(function (error) {
+        console.error('Error accessing camera:', error);
+      });
+  } else {
+    console.error('getUserMedia is not supported in this browser');
+  }
+</script>
+
   <br>
   <img src="./IMGs/stage2.png" />
 
