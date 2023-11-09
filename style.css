@@ -56,14 +56,19 @@ body {
   grid-row: 2 / 3;
 }
 
+.topBarPlaceholder {
+  height: var(--topBarHeight);
+}
+
 .wrapper {
   width: 100%;
-  height: calc(100vh - var(--topBarHeight) * 2);
+  height: calc(100vh - var(--topBarHeight));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 1em;
+  overflow: hidden;
 }
 
 .title {

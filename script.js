@@ -69,11 +69,10 @@ else {
 
 const proceed = () => {
   let tl = gsap.timeline({
-    defaults: { delay: 1, duration: 0.5, ease: "power2" },
+    defaults: { delay: 0, duration: 0.5, ease: "power2" },
   });
 
-  tl.to(".proceed, .title", { opacity: 0, y: -20, delay: 0 }).to(
-    ".round1Wrapper",
-    { opacity: 1, delay: 0, y: -20 }
-  );
+  tl.to(".proceed, .title", { opacity: 0, y: -20 })
+    .to(".proceed, .title", { display: "none" }, "<.5")
+    .to(".round1Wrapper", { opacity: 1, y: -20 });
 };
