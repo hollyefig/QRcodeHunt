@@ -3,16 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Hunt!</title>
+  <title>Secret Code Scanner</title>
 </head>
 <body>
 
-  <p>Main page</p>
-  <br>
-  <a href="https://www.example.com" download>Scan QR Code</a>
-  <br>
-  <img src="./IMGs/stage2.png" />
+<!-- Display for the revealed secret digits -->
+<div id="secretDigits"></div>
 
- 
+<!-- QR code scanner buttons for each digit -->
+<button onclick="scanQRCode(1)">Scan QR Code for Digit 1</button>
+<button onclick="scanQRCode(2)">Scan QR Code for Digit 2</button>
+<button onclick="scanQRCode(3)">Scan QR Code for Digit 3</button>
+<button onclick="scanQRCode(4)">Scan QR Code for Digit 4</button>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
+<script>
+  var secretCode = [1, 2, 3, 4];
+  var revealedDigits = [];
+
+  function scanQRCode(digit) {
+    // Simulate scanning by providing a sample QR code image URL
+    var sampleQRCodeURL = 'https://example.com/sample-qrcode-' + digit + '.png';
+
+    // Replace this with actual logic to capture QR code image from the camera
+    // For simplicity, we'll use a sample image URL here
+    simulateQRCodeCapture(sampleQRCodeURL, digit);
+  }
+
+  function simulateQRCodeCapture(qrCodeImageURL, digit) {
+    // Create an image element to load the QR code image
+    var img = new Image();
+    img.onload = function() {
+      // Create a canvas to process the QR code image
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, 0, 0, img.width, img.height);
+
+      // Decode the QR code from the image
+      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      var code = jsQR(imageData.data, imageData.width, imageData.height);
+
+      // Display the revealed digit
+      if (code) {
+        // Assume the QR code contains a single digit (0-9)
+        var revealedDigit = parseInt(code.data.charAt(0));
+
+        // Check if the revealed digit matches the expected digit
+        if (revealedDigit === secretCode[digit - 1]) {
+          // Update the revealedDigits array
+          revealedDigits[digit - 1] = revealedDigit;
+
+          // Display the revealed digits in the designated element
+          document.getElementById('secretDigits').innerText = 'Revealed Digits: ' + revealedDigits.join(' ');
+
+          // Here, you can handle additional logic when a digit is successfully revealed
+          console.log('Digit ' + digit + ' revealed: ' + revealedDigit);
+        } else {
+          console.log('Incorrect QR code for Digit ' + digit);
+        }
+      } else {
+        console.log('No QR Code detected for Digit ' + digit);
+      }
+    };
+
+    // Set the source of the image to the QR code URL
+    img.src = qrCodeImageURL;
+  }
+</script>
+
 </body>
 </html>
