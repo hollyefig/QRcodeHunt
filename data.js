@@ -29,4 +29,14 @@ const data = [
     ],
     hint: "Here is your THIRRDDD hint to your next QR code",
   },
+  {
+    q: "The LAST question, what will it be???",
+    options: [
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one is the correct one", isTrue: true },
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one will be incorrect", isTrue: false },
+    ],
+    hint: "Get that FINAL hint",
+  },
 ];

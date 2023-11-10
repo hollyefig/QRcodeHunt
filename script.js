@@ -1,5 +1,5 @@
 const keyCode = [3, 5, 2, 9],
-  stages = ["stage1", "stage2", "stage3"],
+  stages = ["stage1", "stage2", "stage3", "stage4"],
   currentUrl = window.location.href,
   titleText = "QR Code Hunt!".split(""),
   colors = {
@@ -43,8 +43,11 @@ for (let i = 0; i < stages.length; i++) {
       wrapper.setAttribute("id", stages[i]);
       let n = stages.indexOf(stages[i]) - 1;
       // Add in current keycodes entered
+      console.log("get length", i);
       if (i > 1) {
-        document.querySelector(`.num_${i - 2}`).style.opacity = 1;
+        for (let k = 0; k < i - 1; k++) {
+          document.querySelector(`.num_${k}`).style.opacity = 1;
+        }
       }
       timeline
         .to(`.num_${n}`, { opacity: 1 })
@@ -113,6 +116,7 @@ const selectAnswer = (e) => {
     opacity: 1,
     duration: 0.5,
     delay: 0.1,
+    scale: 1,
   });
 
   if (!e) {
@@ -122,6 +126,8 @@ const selectAnswer = (e) => {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
     document.querySelector(".getHint").style.display = "block";
+    document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
+      colors.normal;
 
     !currentUrl.includes("stages")
       ? new Audio("sounds/wow.mp3").play()
@@ -133,6 +139,8 @@ const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
   document.querySelector(".blurBgMsgWrapper").style.display = "none";
+  document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
+    colors.mediumDark;
   document.querySelector(".getHint").style.display = "none";
 };
 window.addEventListener("keydown", (e) => {
