@@ -91,6 +91,21 @@ body {
   border-radius: 0.9em;
 }
 
-.round1Wrapper {
+.questionWrapper {
   opacity: 0;
+  padding: 1.3em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.3em;
+}
+
+.question {
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.questionWrapper ul li {
+  list-style-type: none;
+  padding: 0.2em 0;
 }

@@ -1,14 +1,15 @@
 const keyCode = [3, 5, 2, 9],
-  currentUrl = window.location.href,
-  titleText = "QR Code Hunt!".split(""),
-  colors = {
+  stages = ["stage1", "stage2", "stage3"];
+(currentUrl = window.location.href),
+  (titleText = "QR Code Hunt!".split("")),
+  (colors = {
     dark: "#0e100f",
     mediumDark: "#3b438f",
     normal: "#d556fa",
     mediumLight: "#8de6e9",
     light: "#fefce1",
-  },
-  topBarHeight = 100;
+  }),
+  (topBarHeight = 100);
 
 keyCode.forEach((e, index) => {
   let num = document.createElement("div");
@@ -74,5 +75,14 @@ const proceed = () => {
 
   tl.to(".proceed, .title", { opacity: 0, y: -20 })
     .to(".proceed, .title", { display: "none" }, "<.5")
-    .to(".round1Wrapper", { opacity: 1, y: -20 });
+    .to(".questionWrapper", { opacity: 1, y: -20 });
 };
+
+let questionWrapper = document.getElementById("stage1");
+questionWrapper.children[0].textContent = data[0].q;
+data[0].options.forEach((e) => {
+  console.log(e.text);
+  let li = document.createElement("li");
+  li.textContent = e.text;
+  questionWrapper.children[1].appendChild(li);
+});
