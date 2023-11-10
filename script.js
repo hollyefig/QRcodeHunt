@@ -106,7 +106,7 @@ const selectAnswer = (e) => {
   } else {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
-    new Audio("../sounds/wow.mov").play();
+    new Audio("../sounds/wow.mp3").play();
   }
 };
 
