@@ -110,7 +110,9 @@ for (let i = 0; i < stages.length; i++) {
       let li = document.createElement("li");
       li.textContent = e.text;
       li.setAttribute("class", "listItem");
-      li.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+      li.addEventListener("click", () => {
+        selectAnswer(e.isTrue);
+      });
       questionWrapper.children[1].appendChild(li);
     });
   }
