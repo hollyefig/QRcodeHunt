@@ -10,7 +10,8 @@ const keyCode = [3, 5, 2, 9],
     light: "#fefce1",
   },
   topBarHeight = 100,
-  wrapper = document.querySelector(".wrapper");
+  wrapper = document.querySelector(".wrapper"),
+  questionWrapper = document.querySelector(".questionWrapper");
 
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
@@ -55,7 +56,6 @@ for (let i = 0; i < stages.length; i++) {
       if (i > 1) {
         document.querySelector(`.num_${i - 2}`).style.opacity = 1;
       }
-
       timeline
         .to(`.num_${n}`, { opacity: 1 })
         .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
@@ -101,8 +101,7 @@ const closeBlurBg = () => {
 
 // SET UP QUESTIONS PER PAGE
 for (let i = 0; i < stages.length; i++) {
-  let currentStage = wrapper.attributes.id.value,
-    questionWrapper = document.querySelector(".questionWrapper");
+  let currentStage = wrapper.attributes.id.value;
 
   if (currentStage === stages[i]) {
     questionWrapper.children[0].textContent = data[i].q;
