@@ -92,27 +92,29 @@ const proceed = () => {
 
 // BLUR BG
 const selectAnswer = (e) => {
+  console.log(e);
   document.querySelector(".blurBg").style.display = "block";
 };
 
 const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
 };
+window.addEventListener("keydown", (e) => {
+  e.key === "Escape" && closeBlurBg();
+});
 
 // SET UP QUESTIONS PER PAGE
 for (let i = 0; i < stages.length; i++) {
   let currentStage = wrapper.attributes.id.value;
 
   if (currentStage === stages[i]) {
-    questionWrapper.children[0].textContent = data[i].q;
+    document.querySelector(".question").textContent = data[i].q;
     data[i].options.forEach((e) => {
-      let li = document.createElement("li");
-      li.textContent = e.text;
-      li.setAttribute("class", "listItem");
-      li.addEventListener("click", () => {
-        selectAnswer(e.isTrue);
-      });
-      questionWrapper.children[1].appendChild(li);
+      let div = document.createElement("div");
+      div.textContent = e.text;
+      div.setAttribute("class", "listItem");
+      div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+      document.querySelector(".optionWrapper").appendChild(div);
     });
   }
 }

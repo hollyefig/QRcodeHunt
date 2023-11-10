@@ -23,6 +23,13 @@ body {
   font-family: "Montserrat", sans-serif;
   --topBarHeight: 100px;
   overflow: hidden;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 .blurBg {
@@ -119,10 +126,14 @@ body {
   font-size: clamp(2rem, 40px, 15px);
 }
 
-.questionWrapper ul li {
-  list-style-type: none;
+.optionWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.7em;
+}
+
+.optionWrapper > div {
   padding: 0.7em;
-  margin: 0.7em 0;
   border: 1px solid var(--mediumDark);
   border-radius: 10px;
   font-size: 14px;
