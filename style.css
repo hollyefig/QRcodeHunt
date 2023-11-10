@@ -42,6 +42,12 @@ body {
   backdrop-filter: blur(7px);
   display: none;
 }
+/* Styles that specifically apply to Safari */
+@supports (-webkit-backdrop-filter: blur(7px)) {
+  .blurBg {
+    background-color: rgba(0, 0, 0, 0.6); /* Background color specific to Safari */
+  }
+}
 
 .topBar {
   width: 100%;
