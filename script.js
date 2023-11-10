@@ -92,12 +92,28 @@ const proceed = () => {
 
 // BLUR BG
 const selectAnswer = (e) => {
-  console.log(e);
-  document.querySelector(".blurBg").style.display = "block";
+  const msgH2 = document.querySelector(".blurBgMsgWrapper > h2"),
+    msgSpan = document.querySelector(".blurBgMsgWrapper > span");
+
+  document.querySelector(".blurBg").style.display = "flex";
+  gsap.timeline().to(".blurBgMsgWrapper", {
+    opacity: 1,
+    duration: 0.5,
+    delay: 0.1,
+  });
+
+  if (!e) {
+    msgH2.textContent = "(⋟﹏⋞)";
+    msgSpan.textContent = "try again!";
+  } else {
+    msgH2.textContent = "٩(◕‿◕｡)۶";
+    msgSpan.textContent = "that's correct!";
+  }
 };
 
 const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
+  document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
 };
 window.addEventListener("keydown", (e) => {
   e.key === "Escape" && closeBlurBg();
