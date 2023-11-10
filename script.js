@@ -44,32 +44,31 @@ const scaleExpand = { scale: 2 },
   scaleDefault = { scale: 1, delay: 0, duration: 0.4 },
   topBarSet = { height: "100vh", duration: 0.7, delay: 0.3 };
 
-//  execute animation for stage 2, set attribute
-if (currentUrl.includes("stage2")) {
-  wrapper.setAttribute("id", "stage2");
-  timeline
-    .to(".num_0", { opacity: 1 })
-    .fromTo(".num_0", scaleExpand, scaleDefault, "<")
-    .from(".topBar", topBarSet);
-}
-//  execute animation for stage 3, set attribute
-else if (currentUrl.includes("stage3")) {
-  wrapper.setAttribute("id", "stage3");
-  document.querySelector(".num_0").style.opacity = 1;
-  timeline
-    .to(".num_1", { opacity: 1 })
-    .fromTo(".num_1", scaleExpand, scaleDefault, "<")
-    .from(".topBar", topBarSet);
-}
-//  index default
-else {
-  wrapper.setAttribute("id", "stage1");
-  // default timeline
-  timeline
-    .from(".topBar", { y: -topBarHeight })
-    .from(".title > span", { opacity: 0, stagger: 0.1, delay: 0 })
-    .to(".title > span", { color: colors.light, stagger: 0.1, delay: 0 }, "<.1")
-    .from(".proceed", { opacity: 0, y: 20, delay: 0 });
+for (let i = 0; i < stages.length; i++) {
+  if (stages[i] !== "stage1") {
+    if (currentUrl.includes(stages[i])) {
+      wrapper.setAttribute("id", stages[i]);
+      let n = stages.indexOf(stages[i]);
+      timeline
+        .to(`.num_${n - 1}`, { opacity: 1 })
+        .fromTo(`.num_${n - 1}`, scaleExpand, scaleDefault, "<")
+        .from(".topBar", topBarSet);
+    }
+  } else {
+    if (currentUrl.includes("index")) {
+      wrapper.setAttribute("id", "stage1");
+      // default timeline
+      timeline
+        .from(".topBar", { y: -topBarHeight })
+        .from(".title > span", { opacity: 0, stagger: 0.1, delay: 0 })
+        .to(
+          ".title > span",
+          { color: colors.light, stagger: 0.1, delay: 0 },
+          "<.1"
+        )
+        .from(".proceed", { opacity: 0, y: 20, delay: 0 });
+    }
+  }
 }
 
 // PROCEED BUTTON
