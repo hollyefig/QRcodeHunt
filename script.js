@@ -60,6 +60,9 @@ for (let i = 0; i < stages.length; i++) {
         .to(`.num_${n}`, { opacity: 1 })
         .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
         .add(new Audio("sounds/wow.mp3").play())
+        .add(() => {
+          new Audio("../sounds/wow.mp3").play();
+        })
         .from(".topBar", topBarSet);
     }
   } else {
