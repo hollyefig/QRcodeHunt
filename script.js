@@ -106,7 +106,10 @@ const selectAnswer = (e) => {
   } else {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
-    new Audio("sounds/wow.mp3").play();
+
+    !currentUrl.includes("stages")
+      ? new Audio("sounds/wow.mp3").play()
+      : new Audio("../sounds/wow.mp3").play();
   }
 };
 
