@@ -55,7 +55,7 @@ for (let i = 0; i < stages.length; i++) {
         .from(".topBar", topBarSet);
     }
   } else {
-    if (currentUrl.includes("index")) {
+    if (!currentUrl.includes("stages")) {
       wrapper.setAttribute("id", "stage1");
       // default timeline
       timeline
