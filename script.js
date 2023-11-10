@@ -91,14 +91,12 @@ const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
 };
 
-stages.forEach((e, index) => {
-  let questionWrapper = document.getElementById(e);
-  questionWrapper.children[0].textContent = data[index].q;
-  data[index].options.forEach((e) => {
-    let li = document.createElement("li");
-    li.textContent = e.text;
-    li.setAttribute("class", "listItem");
-    li.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
-    questionWrapper.children[1].appendChild(li);
-  });
+let questionWrapper = document.getElementById("stage1");
+questionWrapper.children[0].textContent = data[0].q;
+data[0].options.forEach((e) => {
+  let li = document.createElement("li");
+  li.textContent = e.text;
+  li.setAttribute("class", "listItem");
+  li.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+  questionWrapper.children[1].appendChild(li);
 });
