@@ -59,6 +59,7 @@ for (let i = 0; i < stages.length; i++) {
       timeline
         .to(`.num_${n}`, { opacity: 1 })
         .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
+        .add(new Audio("sounds/wow.mp3").play())
         .from(".topBar", topBarSet);
     }
   } else {
@@ -79,7 +80,6 @@ for (let i = 0; i < stages.length; i++) {
 }
 
 // PROCEED BUTTON
-
 const proceed = () => {
   let tl = gsap.timeline({
     defaults: { delay: 0, duration: 0.5, ease: "power2" },
@@ -90,7 +90,7 @@ const proceed = () => {
     .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 });
 };
 
-// BLUR BG
+// BLUR BG, QUESTION ANSWER REVEAL
 const selectAnswer = (e) => {
   const msgH2 = document.querySelector(".blurBgMsgWrapper > h2"),
     msgSpan = document.querySelector(".blurBgMsgWrapper > span");
