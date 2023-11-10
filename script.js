@@ -16,7 +16,8 @@ const keyCode = [3, 5, 2, 9],
 keyCode.forEach((e, index) => {
   let num = document.createElement("div");
   let underline = document.createElement("div");
-  num.setAttribute("class", `num_${index} opacity0`);
+  num.setAttribute("class", `num_${index}`);
+  num.style.opacity = 0;
 
   underline.setAttribute("class", "numUnderline");
   num.textContent = e;
@@ -47,11 +48,17 @@ const scaleExpand = { scale: 2 },
 for (let i = 0; i < stages.length; i++) {
   if (stages[i] !== "stage1") {
     if (currentUrl.includes(stages[i])) {
+      //set wrapper name
       wrapper.setAttribute("id", stages[i]);
-      let n = stages.indexOf(stages[i]);
+      let n = stages.indexOf(stages[i]) - 1;
+      // Add in current keycodes entered
+      if (i > 1) {
+        document.querySelector(`.num_${i - 2}`).style.opacity = 1;
+      }
+
       timeline
-        .to(`.num_${n - 1}`, { opacity: 1 })
-        .fromTo(`.num_${n - 1}`, scaleExpand, scaleDefault, "<")
+        .to(`.num_${n}`, { opacity: 1 })
+        .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
         .from(".topBar", topBarSet);
     }
   } else {
@@ -85,7 +92,6 @@ const proceed = () => {
 
 // BLUR BG
 const selectAnswer = (e) => {
-  console.log(e);
   document.querySelector(".blurBg").style.display = "block";
 };
 

@@ -17,4 +17,13 @@ const data = [
       { text: "This one will be incorrect", isTrue: false },
     ],
   },
+  {
+    q: "Okay third Question! What is it?",
+    options: [
+      { text: "This one is the correct one", isTrue: true },
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one will be incorrect", isTrue: false },
+    ],
+  },
 ];
