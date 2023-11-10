@@ -9,7 +9,7 @@ const data = [
     ],
   },
   {
-    q: "What is the answer to the first question?",
+    q: "What is the answer to the seconnnddd question?",
     options: [
       { text: "This one will be incorrect", isTrue: false },
       { text: "This one will be incorrect", isTrue: false },

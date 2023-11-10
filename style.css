@@ -24,6 +24,16 @@ body {
   --topBarHeight: 100px;
 }
 
+.blurBg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(7px);
+  display:none;
+}
+
 .topBar {
   width: 100%;
   height: var(--topBarHeight);
@@ -96,16 +106,23 @@ body {
   padding: 1.3em;
   display: flex;
   flex-direction: column;
-  row-gap: 1.3em;
+  row-gap: 1.5em;
+  overflow: hidden;
+  display: none;
 }
 
 .question {
   font-family: "Archivo", sans-serif;
   font-weight: 600;
-  font-size: 40px;
+  font-size: clamp(2rem, 40px, 15px);
 }
 
 .questionWrapper ul li {
   list-style-type: none;
-  padding: 0.2em 0;
+  padding: 0.5em;
+  margin: .7em 0;
+  border: 1px solid var(--mediumDark);
+  border-radius: 10px;
+  font-size: 14px;
 }
+
