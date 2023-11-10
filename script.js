@@ -1,5 +1,5 @@
 const keyCode = [3, 5, 2, 9],
-  stages = ["stage1", "stage2"],
+  stages = ["stage1", "stage2", "stage3"],
   currentUrl = window.location.href,
   titleText = "QR Code Hunt!".split(""),
   colors = {
@@ -9,8 +9,10 @@ const keyCode = [3, 5, 2, 9],
     mediumLight: "#8de6e9",
     light: "#fefce1",
   },
-  topBarHeight = 100;
+  topBarHeight = 100,
+  wrapper = document.querySelector(".wrapper");
 
+// KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
   let num = document.createElement("div");
   let underline = document.createElement("div");
@@ -21,6 +23,7 @@ keyCode.forEach((e, index) => {
   document.querySelector(".keyWrapper").append(num, underline);
 });
 
+// TITLE TEXT ANIMATION
 titleText.forEach((e) => {
   let span = document.createElement("span");
   if (e === " ") {
@@ -31,7 +34,7 @@ titleText.forEach((e) => {
   }
 });
 
-// PAGE LOAD ANIMATIONS
+// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
 
 let timeline = gsap.timeline({
   defaults: { delay: 1, duration: 0.5, ease: "power2" },
@@ -41,15 +44,17 @@ const scaleExpand = { scale: 2 },
   scaleDefault = { scale: 1, delay: 0, duration: 0.4 },
   topBarSet = { height: "100vh", duration: 0.7, delay: 0.3 };
 
-//  execute animation for stage 2
+//  execute animation for stage 2, set attribute
 if (currentUrl.includes("stage2")) {
+  wrapper.setAttribute("id", "stage2");
   timeline
     .to(".num_0", { opacity: 1 })
     .fromTo(".num_0", scaleExpand, scaleDefault, "<")
     .from(".topBar", topBarSet);
 }
-//  execute animation for stage 3
+//  execute animation for stage 3, set attribute
 else if (currentUrl.includes("stage3")) {
+  wrapper.setAttribute("id", "stage3");
   document.querySelector(".num_0").style.opacity = 1;
   timeline
     .to(".num_1", { opacity: 1 })
@@ -58,6 +63,7 @@ else if (currentUrl.includes("stage3")) {
 }
 //  index default
 else {
+  wrapper.setAttribute("id", "stage1");
   // default timeline
   timeline
     .from(".topBar", { y: -topBarHeight })
@@ -73,12 +79,9 @@ const proceed = () => {
     defaults: { delay: 0, duration: 0.5, ease: "power2" },
   });
 
-  if (currentUrl.includes("stage2")) {
-  } else {
-    tl.to(".proceed, .title", { opacity: 0, y: -20 })
-      .to(".proceed, .title", { display: "none" }, "<.5")
-      .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 });
-  }
+  tl.to(".proceed, .title", { opacity: 0, y: -20 })
+    .to(".proceed, .title", { display: "none" }, "<.5")
+    .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 });
 };
 
 // BLUR BG
@@ -91,12 +94,19 @@ const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
 };
 
-let questionWrapper = document.getElementById("stage1");
-questionWrapper.children[0].textContent = data[0].q;
-data[0].options.forEach((e) => {
-  let li = document.createElement("li");
-  li.textContent = e.text;
-  li.setAttribute("class", "listItem");
-  li.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
-  questionWrapper.children[1].appendChild(li);
-});
+// SET UP QUESTIONS PER PAGE
+for (let i = 0; i < stages.length; i++) {
+  let currentStage = wrapper.attributes.id.value,
+    questionWrapper = document.querySelector(".questionWrapper");
+
+  if (currentStage === stages[i]) {
+    questionWrapper.children[0].textContent = data[i].q;
+    data[i].options.forEach((e) => {
+      let li = document.createElement("li");
+      li.textContent = e.text;
+      li.setAttribute("class", "listItem");
+      li.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+      questionWrapper.children[1].appendChild(li);
+    });
+  }
+}
