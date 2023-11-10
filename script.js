@@ -13,6 +13,8 @@ const keyCode = [3, 5, 2, 9],
   wrapper = document.querySelector(".wrapper"),
   questionWrapper = document.querySelector(".questionWrapper");
 
+console.log();
+
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
   let num = document.createElement("div");
@@ -23,17 +25,6 @@ keyCode.forEach((e, index) => {
   underline.setAttribute("class", "numUnderline");
   num.textContent = e;
   document.querySelector(".keyWrapper").append(num, underline);
-});
-
-// TITLE TEXT ANIMATION
-titleText.forEach((e) => {
-  let span = document.createElement("span");
-  if (e === " ") {
-    document.querySelector(".title").appendChild(document.createElement("br"));
-  } else {
-    span.textContent = e;
-    document.querySelector(".title").appendChild(span);
-  }
 });
 
 // PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
@@ -58,11 +49,29 @@ for (let i = 0; i < stages.length; i++) {
       timeline
         .to(`.num_${n}`, { opacity: 1 })
         .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
-        .from(".topBar", topBarSet);
+        .from(".topBar", topBarSet)
+        .to(
+          "body",
+          { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
+          "<"
+        )
+        .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
     }
   } else {
     if (!currentUrl.includes("stages")) {
       wrapper.setAttribute("id", "stage1");
+      // TITLE TEXT ANIMATION
+      titleText.forEach((e) => {
+        let span = document.createElement("span");
+        if (e === " ") {
+          document
+            .querySelector(".title")
+            .appendChild(document.createElement("br"));
+        } else {
+          span.textContent = e;
+          document.querySelector(".title").appendChild(span);
+        }
+      });
       // default timeline
       timeline
         .from(".topBar", { y: -topBarHeight })
@@ -83,8 +92,14 @@ const proceed = () => {
     defaults: { delay: 0, duration: 0.5, ease: "power2" },
   });
   tl.to(".proceed, .title", { opacity: 0, y: -20 })
-    .to(".proceed, .title", { display: "none" }, "<.5")
-    .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 });
+    .to(
+      "body",
+      { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
+      "<"
+    )
+    .to(".proceed, .title", { display: "none", duration: 0 }, "<.5")
+    .to(".questionWrapper", { display: "flex", duration: 0 }, "<")
+    .to(".questionWrapper", { opacity: 1, y: -20 }, "<");
 };
 
 // BLUR BG, QUESTION ANSWER REVEAL
