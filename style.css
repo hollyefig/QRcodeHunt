@@ -159,6 +159,18 @@ body {
   max-width: 460px;
   opacity: 0;
   border-radius: 15px;
+  display: none;
+  position: absolute;
+  z-index: 15;
+  row-gap: 0.5em;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.blurBgMsgWrapper > div {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -169,4 +181,19 @@ body {
   font-family: "Archivo", sans-serif;
   font-weight: 900;
   font-size: 30px;
+}
+
+.blurBgMsgWrapper span {
+  font-size: 20px;
+}
+
+.getHint {
+  background-color: transparent;
+  border: 2px solid var(--light);
+  color: var(--light);
+  padding: 0.6em;
+  border-radius: 10px;
+  font-size: 18px;
+  margin: 12px 0;
+  display: none;
 }

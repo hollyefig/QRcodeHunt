@@ -37,7 +37,6 @@ titleText.forEach((e) => {
 });
 
 // PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
-
 let timeline = gsap.timeline({
   defaults: { delay: 1, duration: 0.5, ease: "power2" },
 });
@@ -90,10 +89,11 @@ const proceed = () => {
 
 // BLUR BG, QUESTION ANSWER REVEAL
 const selectAnswer = (e) => {
-  const msgH2 = document.querySelector(".blurBgMsgWrapper > h2"),
-    msgSpan = document.querySelector(".blurBgMsgWrapper > span");
+  const msgH2 = document.querySelector(".blurBgMsgWrapper > div > h2"),
+    msgSpan = document.querySelector(".blurBgMsgWrapper > div > span");
 
   document.querySelector(".blurBg").style.display = "flex";
+  document.querySelector(".blurBgMsgWrapper").style.display = "flex";
   gsap.timeline().to(".blurBgMsgWrapper", {
     opacity: 1,
     duration: 0.5,
@@ -106,6 +106,7 @@ const selectAnswer = (e) => {
   } else {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
+    document.querySelector(".getHint").style.display = "block";
 
     !currentUrl.includes("stages")
       ? new Audio("sounds/wow.mp3").play()
@@ -116,6 +117,8 @@ const selectAnswer = (e) => {
 const closeBlurBg = () => {
   document.querySelector(".blurBg").style.display = "none";
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
+  document.querySelector(".blurBgMsgWrapper").style.display = "none";
+  document.querySelector(".getHint").style.display = "none";
 };
 window.addEventListener("keydown", (e) => {
   e.key === "Escape" && closeBlurBg();
