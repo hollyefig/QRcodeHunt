@@ -59,10 +59,6 @@ for (let i = 0; i < stages.length; i++) {
       timeline
         .to(`.num_${n}`, { opacity: 1 })
         .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
-        .add(new Audio("sounds/wow.mp3").play())
-        .add(() => {
-          new Audio("../sounds/wow.mp3").play();
-        })
         .from(".topBar", topBarSet);
     }
   } else {
@@ -87,7 +83,6 @@ const proceed = () => {
   let tl = gsap.timeline({
     defaults: { delay: 0, duration: 0.5, ease: "power2" },
   });
-
   tl.to(".proceed, .title", { opacity: 0, y: -20 })
     .to(".proceed, .title", { display: "none" }, "<.5")
     .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 });
@@ -111,6 +106,7 @@ const selectAnswer = (e) => {
   } else {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
+    new Audio("../sounds/wow.mov").play();
   }
 };
 
