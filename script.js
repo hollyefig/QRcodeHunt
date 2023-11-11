@@ -38,30 +38,17 @@ const scaleExpand = { scale: 2 },
 // GET HINT
 const getHint = () => {
   const msg = document.querySelector(".blurBgMsgWrapper span");
-  console.log(msg);
+  let num =
+    parseInt(document.querySelector(".wrapper").getAttribute("id").slice(-1)) -
+    1;
   timeline
     .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
     .to(".blurBgMsgWrapper h2", { height: 0, padding: 0, margin: 0, delay: 0 })
-    .to(".getHint", {
-      height: 0,
-      padding: 0,
-      margin: 0,
-      delay: 0,
-      onComplete: () => {
-        // Your loop or actions to be executed after the animations complete
-        for (let i = 0; i < stages.length; i++) {
-          if (stages[i] !== "stage1") {
-            if (currentUrl.includes(stages[i])) {
-              // Actions related to the stages
-            }
-          } else {
-            if (!currentUrl.includes("stages")) {
-              msg.textContent = data[0].hint;
-            }
-          }
-        }
-      },
-    });
+    .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<")
+    .add(() => (msg.textContent = data[num].hint))
+    .to(msg, { color: colors.mediumDark, duration: 1, delay: 0 });
+
+  document.querySelector(".blurBg").removeAttribute("onclick");
 };
 
 // ENTER IN THE UNLOCKED KEY NUMBER
@@ -194,7 +181,10 @@ const selectAnswer = (e) => {
   }
 };
 
+// CLOSE BLUR BG
 const closeBlurBg = () => {
+  const msg = document.querySelector(".blurBgMsgWrapper span");
+
   document.querySelector(".blurBg").style.display = "none";
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
   document.querySelector(".blurBgMsgWrapper").style.display = "none";
