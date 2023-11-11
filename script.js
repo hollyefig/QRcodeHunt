@@ -42,18 +42,26 @@ const getHint = () => {
   timeline
     .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
     .to(".blurBgMsgWrapper h2", { height: 0, padding: 0, margin: 0, delay: 0 })
-    .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<");
-
-  for (let i = 0; i < stages.length; i++) {
-    if (stages[i] !== "stage1") {
-      if (currentUrl.includes(stages[i])) {
-      }
-    } else {
-      if (!currentUrl.includes("stages")) {
-        msg.textContent = data[0].hint;
-      }
-    }
-  }
+    .to(".getHint", {
+      height: 0,
+      padding: 0,
+      margin: 0,
+      delay: 0,
+      onComplete: () => {
+        // Your loop or actions to be executed after the animations complete
+        for (let i = 0; i < stages.length; i++) {
+          if (stages[i] !== "stage1") {
+            if (currentUrl.includes(stages[i])) {
+              // Actions related to the stages
+            }
+          } else {
+            if (!currentUrl.includes("stages")) {
+              msg.textContent = data[0].hint;
+            }
+          }
+        }
+      },
+    });
 };
 
 // ENTER IN THE UNLOCKED KEY NUMBER
