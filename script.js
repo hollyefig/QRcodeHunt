@@ -5,7 +5,7 @@ const keyCode = [3, 5, 2, 9],
   colors = {
     dark: "#0e100f",
     mediumDark: "#3b438f",
-    normal: "#d556fa",
+    normal: "#a056fa",
     mediumLight: "#8de6e9",
     light: "#fefce1",
   },

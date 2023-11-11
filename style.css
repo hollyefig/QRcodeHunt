@@ -12,7 +12,7 @@ font-family: 'Montserrat', sans-serif; */
 :root {
   --dark: #0e100f;
   --mediumDark: #3b438f;
-  --normal: #d556fa;
+  --normal: #a056fa;
   --mediumLight: #8de6e9;
   --light: #fefce1;
 }
@@ -22,7 +22,7 @@ body {
   background-image: url(./IMGs/confetti.jpg);
   background-size: 200vw auto;
   background-position-y: 0px;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   font-family: "Montserrat", sans-serif;
   color: var(--light);
   --topBarHeight: 100px;
