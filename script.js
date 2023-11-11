@@ -1,5 +1,5 @@
 const keyCode = [3, 5, 2, 9],
-  stages = ["stage1", "stage2", "stage3", "stage4"],
+  stages = ["stage1", "stage2", "stage3", "stage4", "stage5"],
   currentUrl = window.location.href,
   titleText = "QR Code Hunt!".split(""),
   colors = {
@@ -183,8 +183,6 @@ const selectAnswer = (e) => {
 
 // CLOSE BLUR BG
 const closeBlurBg = () => {
-  const msg = document.querySelector(".blurBgMsgWrapper span");
-
   document.querySelector(".blurBg").style.display = "none";
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
   document.querySelector(".blurBgMsgWrapper").style.display = "none";
@@ -197,17 +195,15 @@ window.addEventListener("keydown", (e) => {
 });
 
 // SET UP QUESTIONS PER PAGE
-for (let i = 0; i < stages.length; i++) {
-  let currentStage = wrapper.attributes.id.value;
-
-  if (currentStage === stages[i]) {
-    document.querySelector(".question").textContent = data[i].q;
-    data[i].options.forEach((e) => {
-      let div = document.createElement("div");
-      div.textContent = e.text;
-      div.setAttribute("class", "listItem");
-      div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
-      document.querySelector(".optionWrapper").appendChild(div);
-    });
-  }
+let currentStage = wrapper.attributes.id.value,
+  i = parseInt(currentStage.slice(-1) - 1);
+if (currentStage === stages[i]) {
+  document.querySelector(".question").textContent = data[i].q;
+  data[i].options.forEach((e) => {
+    let div = document.createElement("div");
+    div.textContent = e.text;
+    div.setAttribute("class", "listItem");
+    div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+    document.querySelector(".optionWrapper").appendChild(div);
+  });
 }
