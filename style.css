@@ -63,6 +63,14 @@ body {
       0.6
     ); /* Background color specific to Safari */
   }
+  .topBar {
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.6
+    ); /* Background color specific to Safari */
+  }
 }
 
 .topBar {
@@ -88,8 +96,12 @@ body {
   font-size: 60px;
 }
 
-.keyWrapper .opacity0 {
-  opacity: 0;
+.keyWrapper > div:nth-child(odd) {
+  margin: 5px 0;
+}
+
+.keyWrapper span {
+  display: block;
 }
 
 .keyWrapper .numUnderline {
@@ -99,6 +111,22 @@ body {
 
 .topBarPlaceholder {
   height: var(--topBarHeight);
+}
+
+.numBgFlash {
+  animation: bgFlash 2s infinite;
+}
+
+@keyframes bgFlash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: var(--mediumDark);
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 
 .wrapper {
@@ -123,17 +151,33 @@ body {
 }
 
 .proceed {
-  background-color: var(--normal);
+  background-color: var(--mediumDark);
   color: var(--light);
   font-family: "Archivo", sans-serif;
   font-size: 1.3rem;
   padding: 1em;
   border: none;
   border-radius: 0.9em;
+  animation: proceedScale 3s infinite;
+  position: relative;
+}
+
+@keyframes proceedScale {
+  0% {
+    transform: scale(1);
+    background-color: var(--mediumDark);
+  }
+  50% {
+    transform: scale(1.1);
+    background-color: var(--normal);
+  }
+  100% {
+    transform: scale(1);
+    background-color: var(--mediumDark);
+  }
 }
 
 .questionWrapper {
-  opacity: 0;
   padding: 1.3em;
   display: flex;
   flex-direction: column;
