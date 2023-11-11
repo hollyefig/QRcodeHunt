@@ -13,52 +13,82 @@ const keyCode = [3, 5, 2, 9],
   wrapper = document.querySelector(".wrapper"),
   questionWrapper = document.querySelector(".questionWrapper");
 
-console.log();
-
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
-  let num = document.createElement("div");
+  let numWrapper = document.createElement("div");
+  let num = document.createElement("span");
   let underline = document.createElement("div");
-  num.setAttribute("class", `num_${index}`);
+  numWrapper.setAttribute("class", `num_${index}`);
   num.style.opacity = 0;
 
   underline.setAttribute("class", "numUnderline");
   num.textContent = e;
-  document.querySelector(".keyWrapper").append(num, underline);
+  document.querySelector(".keyWrapper").append(numWrapper, underline);
+  numWrapper.appendChild(num);
 });
 
-// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
+// GSAP standards
 let timeline = gsap.timeline({
   defaults: { delay: 1, duration: 0.5, ease: "power2" },
 });
-
 const scaleExpand = { scale: 2 },
   scaleDefault = { scale: 1, delay: 0, duration: 0.4 },
-  topBarSet = { height: "100vh", duration: 0.7, delay: 0.3 };
+  topBarSet = { height: topBarHeight, duration: 0.7, delay: 0.3 };
 
+// ENTER IN THE UNLOCKED KEY NUMBER
+const enterKey = (e) => {
+  const keyEntryMsg = document.querySelector(".keyEntryMsg");
+  // animations for keyPress
+  timeline
+    .to(`.num_${e} > span`, { opacity: 1, delay: 0 })
+    .fromTo(`.num_${e} > span`, scaleExpand, scaleDefault, "<")
+    .to(".keyEntryDiv", { height: "auto", delay: 0 })
+    .to(".keyEntryDiv", { opacity: 1, delay: 0 }, "<.3");
+  document.querySelector(`.num_${e}`).classList.remove("numBgFlash");
+
+  // entry for key input message
+  for (let i = 0; i < stages.length; i++) {
+    let currentStage = wrapper.attributes.id.value;
+    if (currentStage === stages[i]) {
+      keyEntryMsg.textContent = data[i].keyMsg;
+    }
+  }
+};
+
+// GO TO NEXT QUESTION
+const nextQ = () => {
+  timeline
+    .to(".keyEntryDiv", { delay: 0, opacity: 0 })
+    .to(".topBar", topBarSet)
+    .to(".keyEntryDiv", { height: 0, delay: 0 }, "<")
+    .to(
+      "body",
+      { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
+      "<"
+    )
+    .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
+};
+
+// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
 for (let i = 0; i < stages.length; i++) {
   if (stages[i] !== "stage1") {
     if (currentUrl.includes(stages[i])) {
       //set wrapper name
       wrapper.setAttribute("id", stages[i]);
-      let n = stages.indexOf(stages[i]) - 1;
+      document.querySelector(".topBar").style.height = "100vh";
+      let n = stages.indexOf(stages[i]) - 1,
+        currentNum = document.querySelector(`.num_${n}`);
       // Add in current keycodes entered
-      console.log("get length", i);
       if (i > 1) {
         for (let k = 0; k < i - 1; k++) {
-          document.querySelector(`.num_${k}`).style.opacity = 1;
+          document.querySelector(`.num_${k} > span`).style.opacity = 1;
+          document
+            .querySelector(`.num_${k} > span`)
+            .removeAttribute("onclick", `enterKey(${k})`);
         }
       }
-      timeline
-        .to(`.num_${n}`, { opacity: 1 })
-        .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
-        .from(".topBar", topBarSet)
-        .to(
-          "body",
-          { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
-          "<"
-        )
-        .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
+      currentNum.classList.add("numBgFlash");
+      currentNum.setAttribute("onclick", `enterKey(${n})`);
     }
   } else {
     if (!currentUrl.includes("stages")) {
@@ -102,7 +132,7 @@ const proceed = () => {
     )
     .to(".proceed, .title", { display: "none", duration: 0 }, "<.5")
     .to(".questionWrapper", { display: "flex", duration: 0 }, "<")
-    .to(".questionWrapper", { opacity: 1, y: -20 }, "<");
+    .from(".questionWrapper", { opacity: 0, y: 40 }, "<");
 };
 
 // BLUR BG, QUESTION ANSWER REVEAL
@@ -114,7 +144,7 @@ const selectAnswer = (e) => {
   document.querySelector(".blurBgMsgWrapper").style.display = "flex";
   gsap.timeline().to(".blurBgMsgWrapper", {
     opacity: 1,
-    duration: 0.5,
+    duration: 0.3,
     delay: 0.1,
     scale: 1,
   });
