@@ -27,28 +27,55 @@ keyCode.forEach((e, index) => {
   numWrapper.appendChild(num);
 });
 
-// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
-
+// GSAP standards
 let timeline = gsap.timeline({
   defaults: { delay: 1, duration: 0.5, ease: "power2" },
 });
-
 const scaleExpand = { scale: 2 },
   scaleDefault = { scale: 1, delay: 0, duration: 0.4 },
-  topBarSet = { height: "100vh", duration: 0.7, delay: 0.3 };
+  topBarSet = { height: topBarHeight, duration: 0.7, delay: 0.3 };
 
+// ENTER IN THE UNLOCKED KEY NUMBER
 const enterKey = (e) => {
+  const keyEntryMsg = document.querySelector(".keyEntryMsg");
+  // animations for keyPress
   timeline
     .to(`.num_${e} > span`, { opacity: 1, delay: 0 })
-    .fromTo(`.num_${e} > span`, scaleExpand, scaleDefault, "<");
+    .fromTo(`.num_${e} > span`, scaleExpand, scaleDefault, "<")
+    .to(".keyEntryDiv", { height: "auto", delay: 0 })
+    .to(".keyEntryDiv", { opacity: 1, delay: 0 }, "<.3");
   document.querySelector(`.num_${e}`).classList.remove("numBgFlash");
+
+  // entry for key input message
+  for (let i = 0; i < stages.length; i++) {
+    let currentStage = wrapper.attributes.id.value;
+    if (currentStage === stages[i]) {
+      keyEntryMsg.textContent = data[i].keyMsg;
+    }
+  }
 };
 
+// GO TO NEXT QUESTION
+const nextQ = () => {
+  timeline
+    .to(".keyEntryDiv", { delay: 0, opacity: 0 })
+    .to(".topBar", topBarSet)
+    .to(".keyEntryDiv", { height: 0, delay: 0 }, "<")
+    .to(
+      "body",
+      { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
+      "<"
+    )
+    .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
+};
+
+// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
 for (let i = 0; i < stages.length; i++) {
   if (stages[i] !== "stage1") {
     if (currentUrl.includes(stages[i])) {
       //set wrapper name
       wrapper.setAttribute("id", stages[i]);
+      document.querySelector(".topBar").style.height = "100vh";
       let n = stages.indexOf(stages[i]) - 1,
         currentNum = document.querySelector(`.num_${n}`);
       // Add in current keycodes entered
@@ -62,16 +89,6 @@ for (let i = 0; i < stages.length; i++) {
       }
       currentNum.classList.add("numBgFlash");
       currentNum.setAttribute("onclick", `enterKey(${n})`);
-      // timeline
-      //   .to(`.num_${n}`, { opacity: 1 })
-      //   .fromTo(`.num_${n}`, scaleExpand, scaleDefault, "<")
-      //   .from(".topBar", topBarSet)
-      //   .to(
-      //     "body",
-      //     { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
-      //     "<"
-      //   )
-      //   .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
     }
   } else {
     if (!currentUrl.includes("stages")) {
