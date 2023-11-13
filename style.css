@@ -235,6 +235,7 @@ button:active {
   row-gap: 1.5em;
   overflow: hidden;
   display: none;
+  opacity: 0;
 }
 
 .question {

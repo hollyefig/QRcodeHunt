@@ -163,7 +163,8 @@ const proceed = () => {
     )
     .to(".proceed, .title", { display: "none", duration: 0 }, "<.5")
     .to(".questionWrapper", { display: "flex", duration: 0 }, "<")
-    .from(".questionWrapper", { opacity: 0, y: 40 }, "<");
+    .to(".questionWrapper", { opacity: 1 }, "<")
+    .from(".questionWrapper", { y: 40 }, "<");
 };
 
 // BLUR BG, QUESTION ANSWER REVEAL
