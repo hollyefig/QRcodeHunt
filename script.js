@@ -1,5 +1,4 @@
 const keyCode = [3, 5, 2, 9],
-  stages = ["stage1", "stage2", "stage3", "stage4", "stage5"],
   currentUrl = window.location.href,
   titleText = "QR Code Hunt!".split(""),
   colors = {
@@ -12,6 +11,12 @@ const keyCode = [3, 5, 2, 9],
   topBarHeight = 100,
   wrapper = document.querySelector(".wrapper"),
   questionWrapper = document.querySelector(".questionWrapper");
+
+//  assign stages
+let stages = [];
+for (let i = 0; i < data.length; i++) {
+  stages.push(`stage${i + 1}`);
+}
 
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {

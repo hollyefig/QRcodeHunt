@@ -32,7 +32,18 @@ const data = [
     hint: "Here is your THIRRDDD hint to your next QR code",
   },
   {
-    keyMsg: " Just one more to go!",
+    keyMsg: "Just one more to go!",
+    q: "The LAST question, what will it be???",
+    options: [
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one is the correct one", isTrue: true },
+      { text: "This one will be incorrect", isTrue: false },
+      { text: "This one will be incorrect", isTrue: false },
+    ],
+    hint: "Get that FINAL hint",
+  },
+  {
+    keyMsg: "There it is!",
     q: "The LAST question, what will it be???",
     options: [
       { text: "This one will be incorrect", isTrue: false },
