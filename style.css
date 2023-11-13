@@ -324,3 +324,23 @@ button:active {
     transform: scale(1);
   }
 }
+
+/* CONFETTI!!!!  */
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #3b438f; /* Confetti color */
+  animation: fall linear forwards; /* Animation for initial position only */
+  z-index: 20;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-200vh) rotate(0deg); /* Set initial vertical position */
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}

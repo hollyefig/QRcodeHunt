@@ -56,6 +56,38 @@ const getHint = () => {
   document.querySelector(".blurBg").removeAttribute("onclick");
 };
 
+// CONFETTI !!!
+const confettiAnimation = () => {
+  const confettiCount = 100; // Number of confetti particles
+  const body = document.querySelector("body");
+  const colors = ["#3b438f", "#a056fa", "#8de6e9"];
+
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)]; // Randomly choose a color
+    body.appendChild(confetti);
+
+    // Set random horizontal position
+    confetti.style.left = Math.random() * 100 + "vw"; // Random horizontal position
+
+    // Set varied animation duration for each confetti
+    confetti.style.animationDuration = Math.random() * 3 + 1 + "s"; // Random animation duration between 1 to 4 seconds
+
+    // Set varied vertical positions for each confetti
+    confetti.style.top = Math.random() * 100 + "vh"; // Random vertical position
+  }
+
+  // Remove confetti after 5 seconds
+  setTimeout(() => {
+    const confetti = document.querySelectorAll(".confetti");
+    confetti.forEach((item) => {
+      item.remove();
+    });
+  }, 5000); // Remove after 5 seconds (5000 milliseconds)
+};
+
 // ENTER IN THE UNLOCKED KEY NUMBER
 const enterKey = (e) => {
   const keyEntryMsg = document.querySelector(".keyEntryMsg");
@@ -84,6 +116,8 @@ const enterKey = (e) => {
       keyEntryMsg.textContent = data[i].keyMsg;
     }
   }
+  // confetti!!!
+  currentUrl.includes(`stage${data.length}`) && confettiAnimation();
 };
 
 // GO TO NEXT QUESTION
