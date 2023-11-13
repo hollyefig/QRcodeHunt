@@ -117,7 +117,8 @@ const enterKey = (e) => {
     }
   }
   // confetti!!!
-  currentUrl.includes(`stage${data.length}`) && confettiAnimation();
+  currentUrl.includes(`stage${data.length}`) &&
+    (confettiAnimation(), new Audio("../sounds/zelda.mp3").play());
 };
 
 // GO TO NEXT QUESTION
