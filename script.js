@@ -196,10 +196,6 @@ const selectAnswer = (e) => {
     !currentUrl.includes("stages")
       ? new Audio("sounds/wow.mp3").play()
       : new Audio("../sounds/wow.mp3").play();
-
-    timeline
-      .to(msgH2, { scale: 1.3, delay: 0.5 })
-      .to(msgH2, { scale: 1, delay: 0 });
   }
 };
 
