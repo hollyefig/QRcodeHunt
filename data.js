@@ -44,13 +44,13 @@ const data = [
   },
   {
     keyMsg: "There it is!",
-    q: "The LAST question, what will it be???",
-    options: [
-      { text: "This one will be incorrect", isTrue: false },
-      { text: "This one is the correct one", isTrue: true },
-      { text: "This one will be incorrect", isTrue: false },
-      { text: "This one will be incorrect", isTrue: false },
-    ],
-    hint: "Get that FINAL hint",
+    // q: "The LAST question, what will it be???",
+    // options: [
+    //   { text: "This one will be incorrect", isTrue: false },
+    //   { text: "This one is the correct one", isTrue: true },
+    //   { text: "This one will be incorrect", isTrue: false },
+    //   { text: "This one will be incorrect", isTrue: false },
+    // ],
+    // hint: "Get that FINAL hint",
   },
 ];

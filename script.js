@@ -12,7 +12,7 @@ const keyCode = [3, 5, 2, 9],
   wrapper = document.querySelector(".wrapper"),
   questionWrapper = document.querySelector(".questionWrapper");
 
-//  assign stages
+//  ASSIGN STAGES ARRAY
 let stages = [];
 for (let i = 0; i < data.length; i++) {
   stages.push(`stage${i + 1}`);
@@ -59,6 +59,16 @@ const getHint = () => {
 // ENTER IN THE UNLOCKED KEY NUMBER
 const enterKey = (e) => {
   const keyEntryMsg = document.querySelector(".keyEntryMsg");
+  // insert next question button except for final stage
+  if (!currentUrl.includes("stage5")) {
+    const nextQ = document.createElement("button");
+    nextQ.classList.add("nextQ");
+    nextQ.setAttribute("type", "button");
+    nextQ.setAttribute("onclick", "nextQ()");
+    nextQ.textContent = "Next Question";
+    keyEntryMsg.after(nextQ);
+  }
+
   // animations for keyPress
   timeline
     .to(`.num_${e} > span`, { opacity: 1, delay: 0 })
@@ -160,9 +170,9 @@ const proceed = () => {
 const selectAnswer = (e) => {
   const msgH2 = document.querySelector(".blurBgMsgWrapper > div > h2"),
     msgSpan = document.querySelector(".blurBgMsgWrapper > div > span");
+  document.querySelector(".blurBg").classList.add("displayFlex");
+  document.querySelector(".blurBgMsgWrapper").classList.add("displayFlex");
 
-  document.querySelector(".blurBg").style.display = "flex";
-  document.querySelector(".blurBgMsgWrapper").style.display = "flex";
   gsap.timeline().to(".blurBgMsgWrapper", {
     opacity: 1,
     duration: 0.3,
@@ -170,30 +180,37 @@ const selectAnswer = (e) => {
     scale: 1,
   });
 
+  // if answered wrong
   if (!e) {
     msgH2.textContent = "(⋟﹏⋞)";
     msgSpan.textContent = "try again!";
-  } else {
+  }
+  // if answered correctly
+  else {
     msgH2.textContent = "٩(◕‿◕｡)۶";
     msgSpan.textContent = "that's correct!";
-    document.querySelector(".getHint").style.display = "block";
+    document.querySelector(".getHint").classList.add("displayFlex");
     document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
       colors.normal;
 
     !currentUrl.includes("stages")
       ? new Audio("sounds/wow.mp3").play()
       : new Audio("../sounds/wow.mp3").play();
+
+    timeline
+      .to(msgH2, { scale: 1.3, delay: 0.5 })
+      .to(msgH2, { scale: 1, delay: 0 });
   }
 };
 
 // CLOSE BLUR BG
 const closeBlurBg = () => {
-  document.querySelector(".blurBg").style.display = "none";
+  document.querySelector(".blurBg").classList.remove("displayFlex");
+  document.querySelector(".blurBgMsgWrapper").classList.remove("displayFlex");
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
-  document.querySelector(".blurBgMsgWrapper").style.display = "none";
   document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
     colors.mediumDark;
-  document.querySelector(".getHint").style.display = "none";
+  document.querySelector(".getHint").classList.remove("displayFlex");
 };
 window.addEventListener("keydown", (e) => {
   e.key === "Escape" && closeBlurBg();
@@ -202,7 +219,10 @@ window.addEventListener("keydown", (e) => {
 // SET UP QUESTIONS PER PAGE
 let currentStage = wrapper.attributes.id.value,
   i = parseInt(currentStage.slice(-1) - 1);
-if (currentStage === stages[i]) {
+if (
+  currentStage === stages[i] &&
+  !currentStage.includes(`stage${data.length}`)
+) {
   document.querySelector(".question").textContent = data[i].q;
   data[i].options.forEach((e) => {
     let div = document.createElement("div");

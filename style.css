@@ -4,17 +4,14 @@
   box-sizing: border-box;
 }
 
-/* display font
-font-family: 'Archivo', sans-serif;
-copy font
-font-family: 'Montserrat', sans-serif; */
-
 :root {
   --dark: #0e100f;
   --mediumDark: #3b438f;
   --normal: #a056fa;
   --mediumLight: #8de6e9;
   --light: #fefce1;
+  --displayFont: "Archivo", sans-serif;
+  --copyFont: "Montserrat", sans-serif;
 }
 
 body {
@@ -23,7 +20,7 @@ body {
   background-size: 200vw auto;
   background-position-y: 0px;
   background-repeat: repeat-y;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--copyFont);
   color: var(--light);
   --topBarHeight: 100px;
   overflow: hidden;
@@ -62,6 +59,11 @@ button:active {
   justify-content: center;
   align-items: center;
 }
+
+.displayFlex {
+  display: flex !important;
+}
+
 /* Styles that specifically apply to Safari */
 @supports (-webkit-backdrop-filter: blur(7px)) {
   /* Background color specific to Safari */
@@ -84,7 +86,7 @@ button:active {
   row-gap: 15px;
   justify-content: center;
   align-items: center;
-  font-family: "Archivo", sans-serif;
+  font-family: var(--displayFont);
   font-weight: 600;
   overflow: hidden;
 }
@@ -111,7 +113,7 @@ button:active {
 }
 
 .keyEntryMsg {
-  font-family: "Montserrat", sans-serif !important;
+  font-family: var(--copyFont) !important;
   font-size: 22px;
   line-height: 29px;
   padding: 0 1em;
@@ -139,7 +141,7 @@ button:active {
   padding: 1em;
   border-radius: 15px;
   font-size: 16px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--copyFont);
   margin: 0 0 7px 0;
   position: relative;
   animation: nextQboop 1.3s ease-in-out infinite;
@@ -186,11 +188,11 @@ button:active {
   align-items: center;
   row-gap: 1em;
   overflow: hidden;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: var(--copyFont) !important;
 }
 
 .title {
-  font-family: "Archivo", sans-serif;
+  font-family: var(--displayFont);
   font-weight: 900;
   padding: 0.2em;
   width: 100%;
@@ -202,7 +204,7 @@ button:active {
 .proceed {
   background-color: var(--mediumDark);
   color: var(--light);
-  font-family: "Archivo", sans-serif;
+  font-family: var(--displayFont);
   font-size: 1.3rem;
   padding: 1em;
   border: none;
@@ -236,7 +238,7 @@ button:active {
 }
 
 .question {
-  font-family: "Archivo", sans-serif;
+  font-family: var(--displayFont);
   font-weight: 600;
   font-size: clamp(2rem, 40px, 15px);
 }
@@ -283,7 +285,7 @@ button:active {
 }
 
 .blurBgMsgWrapper h2 {
-  font-family: "Archivo", sans-serif;
+  font-family: var(--copyFont);
   font-weight: 900;
   font-size: 30px;
 }
