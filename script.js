@@ -18,18 +18,16 @@ for (let i = 0; i < data.length; i++) {
   stages.push(`stage${i + 1}`);
 }
 
-// Define variables
-let stagess = "stage2";
-
-// Create a URL with variables
-const baseURL = currentUrl;
-const params = new URLSearchParams();
-params.append("stages", stagess);
-
-// Combine the base URL with the parameters
-const finalURL = `${baseURL}?${params.toString()}`;
-
-console.log(finalURL);
+// Define your variable
+let setStage = "stage1";
+// Get the current URL
+const setCurrent = new URL(window.location.href);
+// Create a new URLSearchParams object or get existing parameters
+const params = setCurrent.searchParams;
+// Set the variable in the URL
+params.set("stages", setStage);
+// Replace the current URL with the updated parameters
+window.history.replaceState({}, "", setCurrent);
 
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
@@ -261,19 +259,19 @@ window.addEventListener("keydown", (e) => {
   e.key === "Escape" && closeBlurBg();
 });
 
-// SET UP QUESTIONS PER PAGE
-let currentStage = wrapper.attributes.id.value,
-  i = parseInt(currentStage.slice(-1) - 1);
-if (
-  currentStage === stages[i] &&
-  !currentStage.includes(`stage${data.length}`)
-) {
-  document.querySelector(".question").textContent = data[i].q;
-  data[i].options.forEach((e) => {
-    let div = document.createElement("div");
-    div.textContent = e.text;
-    div.setAttribute("class", "listItem");
-    div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
-    document.querySelector(".optionWrapper").appendChild(div);
-  });
-}
+// // SET UP QUESTIONS PER PAGE
+// let currentStage = wrapper.attributes.id.value,
+//   i = parseInt(currentStage.slice(-1) - 1);
+// if (
+//   currentStage === stages[i] &&
+//   !currentStage.includes(`stage${data.length}`)
+// ) {
+//   document.querySelector(".question").textContent = data[i].q;
+//   data[i].options.forEach((e) => {
+//     let div = document.createElement("div");
+//     div.textContent = e.text;
+//     div.setAttribute("class", "listItem");
+//     div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+//     document.querySelector(".optionWrapper").appendChild(div);
+//   });
+// }
