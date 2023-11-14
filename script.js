@@ -18,6 +18,19 @@ for (let i = 0; i < data.length; i++) {
   stages.push(`stage${i + 1}`);
 }
 
+// Define variables
+let stagess = "stage2";
+
+// Create a URL with variables
+const baseURL = currentUrl;
+const params = new URLSearchParams();
+params.append("stages", stagess);
+
+// Combine the base URL with the parameters
+const finalURL = `${baseURL}?${params.toString()}`;
+
+console.log(finalURL);
+
 // KEY CODE SETUP AT TOPBAR
 keyCode.forEach((e, index) => {
   let numWrapper = document.createElement("div");
