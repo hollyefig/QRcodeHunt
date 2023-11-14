@@ -58,15 +58,15 @@ const getHint = () => {
 
 // CONFETTI !!!
 const confettiAnimation = () => {
-  const confettiCount = 100; // Number of confetti particles
-  const body = document.querySelector("body");
-  const colors = ["#3b438f", "#a056fa", "#8de6e9"];
+  const confettiCount = 100, // Number of confetti particles
+    body = document.querySelector("body"),
+    colorSet = [colors.mediumDark, colors.normal, colors.mediumLight];
 
   for (let i = 0; i < confettiCount; i++) {
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
     confetti.style.backgroundColor =
-      colors[Math.floor(Math.random() * colors.length)]; // Randomly choose a color
+      colorSet[Math.floor(Math.random() * colorSet.length)]; // Randomly choose a color
     body.appendChild(confetti);
 
     // Set random horizontal position
