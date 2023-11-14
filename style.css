@@ -334,13 +334,16 @@ button:active {
   background-color: #3b438f; /* Confetti color */
   animation: fall linear forwards; /* Animation for initial position only */
   z-index: 20;
+  overflow: hidden;
 }
 
 @keyframes fall {
   0% {
     transform: translateY(-200vh) rotate(0deg); /* Set initial vertical position */
+    overflow: hidden;
   }
   100% {
     transform: translateY(100vh) rotate(360deg);
+    overflow: hidden;
   }
 }

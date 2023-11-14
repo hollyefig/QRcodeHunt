@@ -18,14 +18,14 @@ for (let i = 0; i < data.length; i++) {
   stages.push(`stage${i + 1}`);
 }
 
-// Define your variable
-let setStage = "stage1";
-// Get the current URL
-const setCurrent = new URL(window.location.href);
+// SET UP VARIABLES
+let setCurrent = new URL(window.location.href);
+// set a current variable
+let currentStage = stages[0];
 // Create a new URLSearchParams object or get existing parameters
 const params = setCurrent.searchParams;
 // Set the variable in the URL
-params.set("stages", setStage);
+params.set("stages", currentStage);
 // Replace the current URL with the updated parameters
 window.history.replaceState({}, "", setCurrent);
 
@@ -50,6 +50,23 @@ let timeline = gsap.timeline({
 const scaleExpand = { scale: 2 },
   scaleDefault = { scale: 1, delay: 0, duration: 0.4 },
   topBarSet = { height: topBarHeight, duration: 0.7, delay: 0.3 };
+
+// PROCEED BUTTON
+const proceed = () => {
+  let tl = gsap.timeline({
+    defaults: { delay: 0, duration: 0.5, ease: "power2" },
+  });
+  tl.to(".proceed, .title", { opacity: 0, y: -20 })
+    .to(
+      "body",
+      { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
+      "<"
+    )
+    .to(".proceed, .title", { display: "none", duration: 0 }, "<.5")
+    .to(".questionWrapper", { display: "flex", duration: 0 }, "<")
+    .to(".questionWrapper", { opacity: 1 }, "<")
+    .from(".questionWrapper", { y: 40 }, "<");
+};
 
 // GET HINT
 const getHint = () => {
@@ -103,7 +120,7 @@ const confettiAnimation = () => {
 const enterKey = (e) => {
   const keyEntryMsg = document.querySelector(".keyEntryMsg");
   // insert next question button except for final stage
-  if (!currentUrl.includes("stage5")) {
+  if (!currentStage.includes("stage5")) {
     const nextQ = document.createElement("button");
     nextQ.classList.add("nextQ");
     nextQ.setAttribute("type", "button");
@@ -128,8 +145,8 @@ const enterKey = (e) => {
     }
   }
   // confetti!!!
-  currentUrl.includes(`stage${data.length}`) &&
-    (confettiAnimation(), new Audio("../sounds/zelda.mp3").play());
+  currentStage.includes(`stage${data.length}`) &&
+    (confettiAnimation(), new Audio("sounds/zelda.mp3").play());
 };
 
 // GO TO NEXT QUESTION
@@ -146,18 +163,45 @@ const nextQ = () => {
     .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
 };
 
-// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE
-for (let i = 0; i < stages.length; i++) {
-  if (stages[i] !== "stage1") {
-    if (currentUrl.includes(stages[i])) {
-      //set wrapper name
-      wrapper.setAttribute("id", stages[i]);
+// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE, ASSIGN URL VARIABLE
+stages.forEach((e) => {
+  // Set URL variable to current
+  if (currentUrl.includes(e)) {
+    currentStage = e;
+    params.set("stages", currentStage);
+    window.history.replaceState({}, "", setCurrent);
+    wrapper.setAttribute("id", e);
+
+    // set up questions
+    let n = stages.indexOf(e);
+    if (currentStage !== `stage${data.length}`) {
+      document.querySelector(".question").textContent = data[n].q;
+      data[n].options.forEach((e) => {
+        let div = document.createElement("div");
+        div.textContent = e.text;
+        div.setAttribute("class", "listItem");
+        div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
+        document.querySelector(".optionWrapper").appendChild(div);
+      });
+    }
+
+    if (e !== "stage1") {
+      //set divs for !stage1
+      const keyEntryDiv = document.createElement("div");
+      keyEntryDiv.classList.add("keyEntryDiv");
+      const keyEntryMsg = document.createElement("span");
+      keyEntryMsg.classList.add("keyEntryMsg");
+
+      document.querySelector(".topBar").append(keyEntryDiv);
+      keyEntryDiv.appendChild(keyEntryMsg);
+
       document.querySelector(".topBar").style.height = "100vh";
-      let n = stages.indexOf(stages[i]) - 1,
-        currentNum = document.querySelector(`.num_${n}`);
+      let n = stages.indexOf(e),
+        currentNum = document.querySelector(`.num_${n - 1}`);
+
       // Add in current keycodes entered
-      if (i > 1) {
-        for (let k = 0; k < i - 1; k++) {
+      if (n > 1) {
+        for (let k = 0; k < n - 1; k++) {
           document.querySelector(`.num_${k} > span`).style.opacity = 1;
           document
             .querySelector(`.num_${k} > span`)
@@ -165,12 +209,23 @@ for (let i = 0; i < stages.length; i++) {
         }
       }
       currentNum.classList.add("numBgFlash");
-      currentNum.setAttribute("onclick", `enterKey(${n})`);
+      currentNum.setAttribute("onclick", `enterKey(${n - 1})`);
     }
-  } else {
-    if (!currentUrl.includes("stages")) {
-      wrapper.setAttribute("id", "stage1");
-      // TITLE TEXT ANIMATION
+    // settings for initial page
+    else if (e === "stage1") {
+      // create divs for initial page
+      const title = document.createElement("div");
+      title.classList.add("title");
+      const button = document.createElement("button");
+      button.classList.add("proceed");
+      button.setAttribute("type", "button");
+      button.setAttribute("onclick", "proceed()");
+      button.textContent = "Proceed!";
+
+      wrapper.prepend(title);
+      title.after(button);
+
+      // title text animation
       titleText.forEach((e) => {
         let span = document.createElement("span");
         if (e === " ") {
@@ -194,24 +249,7 @@ for (let i = 0; i < stages.length; i++) {
         .from(".proceed", { opacity: 0, y: 20, delay: 0 });
     }
   }
-}
-
-// PROCEED BUTTON
-const proceed = () => {
-  let tl = gsap.timeline({
-    defaults: { delay: 0, duration: 0.5, ease: "power2" },
-  });
-  tl.to(".proceed, .title", { opacity: 0, y: -20 })
-    .to(
-      "body",
-      { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
-      "<"
-    )
-    .to(".proceed, .title", { display: "none", duration: 0 }, "<.5")
-    .to(".questionWrapper", { display: "flex", duration: 0 }, "<")
-    .to(".questionWrapper", { opacity: 1 }, "<")
-    .from(".questionWrapper", { y: 40 }, "<");
-};
+});
 
 // BLUR BG, QUESTION ANSWER REVEAL
 const selectAnswer = (e) => {
@@ -239,10 +277,7 @@ const selectAnswer = (e) => {
     document.querySelector(".getHint").classList.add("displayFlex");
     document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
       colors.normal;
-
-    !currentUrl.includes("stages")
-      ? new Audio("sounds/wow.mp3").play()
-      : new Audio("../sounds/wow.mp3").play();
+    new Audio("sounds/wow.mp3").play();
   }
 };
 
@@ -250,28 +285,11 @@ const selectAnswer = (e) => {
 const closeBlurBg = () => {
   document.querySelector(".blurBg").classList.remove("displayFlex");
   document.querySelector(".blurBgMsgWrapper").classList.remove("displayFlex");
+  document.querySelector(".getHint").classList.remove("displayFlex");
   document.querySelector(".blurBgMsgWrapper").style.opacity = 0;
   document.querySelector(".blurBgMsgWrapper").style.backgroundColor =
     colors.mediumDark;
-  document.querySelector(".getHint").classList.remove("displayFlex");
 };
 window.addEventListener("keydown", (e) => {
   e.key === "Escape" && closeBlurBg();
 });
-
-// // SET UP QUESTIONS PER PAGE
-// let currentStage = wrapper.attributes.id.value,
-//   i = parseInt(currentStage.slice(-1) - 1);
-// if (
-//   currentStage === stages[i] &&
-//   !currentStage.includes(`stage${data.length}`)
-// ) {
-//   document.querySelector(".question").textContent = data[i].q;
-//   data[i].options.forEach((e) => {
-//     let div = document.createElement("div");
-//     div.textContent = e.text;
-//     div.setAttribute("class", "listItem");
-//     div.setAttribute("onclick", `selectAnswer(${e.isTrue})`);
-//     document.querySelector(".optionWrapper").appendChild(div);
-//   });
-// }
