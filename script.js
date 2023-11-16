@@ -164,7 +164,7 @@ const nextQ = () => {
 };
 
 // PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE, ASSIGN URL VARIABLE
-stages.forEach((e) => {
+stages.forEach((e, index) => {
   // Set URL variable to current
   if (currentUrl.includes(e)) {
     currentStage = e;
@@ -173,7 +173,7 @@ stages.forEach((e) => {
     wrapper.setAttribute("id", e);
 
     // set up questions
-    let n = stages.indexOf(e);
+    let n = index;
     if (currentStage !== `stage${data.length}`) {
       document.querySelector(".question").textContent = data[n].q;
       data[n].options.forEach((e) => {
