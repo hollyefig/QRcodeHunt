@@ -76,7 +76,7 @@ button:active {
 .topBar {
   width: 100%;
   height: var(--topBarHeight);
-  padding: .5em;
+  padding: 0.5em;
   border-bottom: 1px solid var(--mediumDark);
   backdrop-filter: blur(7px);
   position: absolute;
@@ -97,8 +97,7 @@ button:active {
   grid-template-rows: 3fr 1px;
   column-gap: 0.3em;
   /* font-size: 40px; */
-  transform: scale(2.5)
-  
+  transform: scale(2.5);
 }
 
 .keyWrapper > div:nth-child(odd) {
@@ -162,7 +161,7 @@ button:active {
 }
 
 .topBarPlaceholder {
-  height: calc(var(--topBarHeight) + 20px);
+  height: calc(var(--topBarHeight));
 }
 
 .numBgFlash {
@@ -233,17 +232,15 @@ button:active {
 .questionWrapper {
   width: 100%;
   height: 100%;
-  padding: 1em .7em .7em .7em;
+  padding: 1em 0.7em 0.7em 0.7em;
   display: flex;
   flex-direction: column;
-  row-gap: .3em;
-  overflow-y:auto;
+  row-gap: 0.3em;
+  overflow-y: auto;
   display: none;
   opacity: 0;
   position: relative;
   justify-content: flex-start;
-  transition: all .5s ease-in-out;
-  
 }
 
 .question {
@@ -264,7 +261,6 @@ button:active {
   border-radius: 10px;
   font-size: 14px;
 }
-
 
 .blurBgMsgWrapper {
   background-color: var(--mediumDark);

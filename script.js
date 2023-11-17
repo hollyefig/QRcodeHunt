@@ -162,7 +162,8 @@ const nextQ = () => {
       { backgroundPosition: "0px -190px", delay: 0, duration: 1.5 },
       "<"
     )
-    .to(".questionWrapper", { display: "flex", opacity: 1, y: -20 }, "<");
+    .to(".questionWrapper", { display: "flex", opacity: 1 }, "<")
+    .from(".questionWrapper", { y: 20, delay: 0 }, "<");
 };
 
 // PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE, ASSIGN URL VARIABLE
