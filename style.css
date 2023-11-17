@@ -22,7 +22,7 @@ body {
   background-repeat: repeat-y;
   font-family: var(--copyFont);
   color: var(--light);
-  --topBarHeight: 100px;
+  --topBarHeight: 70px;
   overflow: hidden;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -76,14 +76,14 @@ button:active {
 .topBar {
   width: 100%;
   height: var(--topBarHeight);
-  padding: 1em;
+  padding: .5em;
   border-bottom: 1px solid var(--mediumDark);
   backdrop-filter: blur(7px);
   position: absolute;
   z-index: 5;
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 7px;
   justify-content: center;
   align-items: center;
   font-family: var(--displayFont);
@@ -94,13 +94,15 @@ button:active {
 .keyWrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 3fr 2px;
+  grid-template-rows: 3fr 1px;
   column-gap: 0.3em;
-  font-size: 60px;
+  /* font-size: 40px; */
+  transform: scale(2.5)
+  
 }
 
 .keyWrapper > div:nth-child(odd) {
-  margin: 5px 0;
+  margin: 0 0 2px 0;
 }
 
 .topBar span {
@@ -116,7 +118,7 @@ button:active {
   font-family: var(--copyFont) !important;
   font-size: 22px;
   line-height: 29px;
-  padding: 0 1em;
+  padding: 1em 1em 0 1em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,7 +162,7 @@ button:active {
 }
 
 .topBarPlaceholder {
-  height: var(--topBarHeight);
+  height: calc(var(--topBarHeight) + 20px);
 }
 
 .numBgFlash {
@@ -229,19 +231,25 @@ button:active {
 }
 
 .questionWrapper {
-  padding: 1.3em;
+  width: 100%;
+  height: 100%;
+  padding: 1em .7em .7em .7em;
   display: flex;
   flex-direction: column;
-  row-gap: 1.5em;
-  overflow: hidden;
+  row-gap: .3em;
+  overflow-y:auto;
   display: none;
   opacity: 0;
+  position: relative;
+  justify-content: flex-start;
+  transition: all .5s ease-in-out;
+  
 }
 
 .question {
   font-family: var(--displayFont);
   font-weight: 600;
-  font-size: clamp(2rem, 40px, 15px);
+  font-size: 24px;
 }
 
 .optionWrapper {
@@ -257,9 +265,6 @@ button:active {
   font-size: 14px;
 }
 
-.optionWrapper > div:active {
-  background-color: var(--mediumDark);
-}
 
 .blurBgMsgWrapper {
   background-color: var(--mediumDark);

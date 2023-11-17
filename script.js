@@ -8,7 +8,7 @@ const keyCode = [3, 5, 2, 9],
     mediumLight: "#8de6e9",
     light: "#fefce1",
   },
-  topBarHeight = 100,
+  topBarHeight = 70,
   wrapper = document.querySelector(".wrapper"),
   questionWrapper = document.querySelector(".questionWrapper");
 
@@ -127,6 +127,7 @@ const enterKey = (e) => {
     nextQ.setAttribute("onclick", "nextQ()");
     nextQ.textContent = "Next Question";
     keyEntryMsg.after(nextQ);
+    document.querySelector(`.num_${e}`).removeAttribute("onclick", "enterKey");
   }
 
   // animations for keyPress
@@ -154,6 +155,7 @@ const nextQ = () => {
   timeline
     .to(".keyEntryDiv", { delay: 0, opacity: 0 })
     .to(".topBar", topBarSet)
+    .to(".keyWrapper", { scale: 2.5, delay: 0 }, "<")
     .to(".keyEntryDiv", { height: 0, delay: 0 }, "<")
     .to(
       "body",
@@ -172,10 +174,13 @@ stages.forEach((e, index) => {
     window.history.replaceState({}, "", setCurrent);
     wrapper.setAttribute("id", e);
 
-    // set up questions
+    // set up questions/options
     let n = index;
     if (currentStage !== `stage${data.length}`) {
-      document.querySelector(".question").textContent = data[n].q;
+      // set up questions
+      const qDiv = document.querySelector(".question");
+      qDiv.textContent = data[n].q;
+      // set up options
       data[n].options.forEach((e) => {
         let div = document.createElement("div");
         div.textContent = e.text;
@@ -186,6 +191,7 @@ stages.forEach((e, index) => {
     }
 
     if (e !== "stage1") {
+      document.querySelector(".keyWrapper").style.transform = "scale(3.0)";
       //set divs for !stage1
       const keyEntryDiv = document.createElement("div");
       keyEntryDiv.classList.add("keyEntryDiv");

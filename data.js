@@ -33,24 +33,28 @@ const data = [
   },
   {
     keyMsg: "Just one more to go!",
-    q: "The LAST question, what will it be???",
+    q: "In the FFXIV Heavensward expansion, Sir Aymeric son of Thordin is the high lord of Ishgard. Of what great plight was he faced with?",
     options: [
-      { text: "This one will be incorrect", isTrue: false },
-      { text: "This one is the correct one", isTrue: true },
-      { text: "This one will be incorrect", isTrue: false },
-      { text: "This one will be incorrect", isTrue: false },
+      {
+        text: "The Garlean occupation, oppressing the Ishgardians and falling under the Tyrannical rule of Zenos yae Galvus",
+        isTrue: false,
+      },
+      {
+        text: "The 1000-years Dragonsong War with the dragons due to the Ishgardian ancestors killing one of their kin, Ratatoskr",
+        isTrue: true,
+      },
+      {
+        text: "Facing the consequences of the Final Days due to Aymeric killing the dark lord Zodiark, cursing the Ishgardians to become blighted",
+        isTrue: false,
+      },
+      {
+        text: "Their country was plagued by a 100-year long curse of eternal light and the threat of the sin-eaters",
+        isTrue: false,
+      },
     ],
     hint: "Get that FINAL hint",
   },
   {
     keyMsg: "There it is!",
-    // q: "The LAST question, what will it be???",
-    // options: [
-    //   { text: "This one will be incorrect", isTrue: false },
-    //   { text: "This one is the correct one", isTrue: true },
-    //   { text: "This one will be incorrect", isTrue: false },
-    //   { text: "This one will be incorrect", isTrue: false },
-    // ],
-    // hint: "Get that FINAL hint",
   },
 ];
