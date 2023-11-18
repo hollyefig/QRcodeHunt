@@ -182,7 +182,7 @@ button:active {
 
 .wrapper {
   width: 100%;
-  height: calc(100vh - var(--topBarHeight));
+  height: calc(100dvh - var(--topBarHeight));
   display: flex;
   flex-direction: column;
   justify-content: center;
