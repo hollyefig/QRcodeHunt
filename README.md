@@ -8,3 +8,6 @@ Scavenger hunt for QR codes
 
 <!-- repo link -->
 <!-- https://github.com/hollyefig/QRcodeHunt -->
+
+<!-- Combo -->
+<!-- 6 - 8 - 4 - 5 -->

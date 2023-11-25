@@ -1,4 +1,4 @@
-const keyCode = [3, 5, 2, 9],
+const keyCode = [6, 8, 4, 5],
   currentUrl = window.location.href,
   titleText = "QR Code Hunt!".split(""),
   colors = {
