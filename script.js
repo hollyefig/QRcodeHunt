@@ -222,7 +222,6 @@ stages.forEach((e, index) => {
         const img = document.createElement("img");
         img.src = "./IMGs/Aero_V-dramon.png";
         img.classList.add("digimonImg");
-        console.log(img, q);
         q.parentNode.insertBefore(img, q);
       }
     }
