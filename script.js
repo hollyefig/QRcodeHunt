@@ -166,7 +166,7 @@ const nextQ = () => {
     .from(".questionWrapper", { y: 20, delay: 0 }, "<");
 };
 
-// PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE, ASSIGN URL VARIABLE
+// & PAGE LOAD ANIMATIONS, ASSIGN ATTRIBUTE, ASSIGN URL VARIABLE
 stages.forEach((e, index) => {
   // Set URL variable to current
   if (currentUrl.includes(e)) {
@@ -217,6 +217,14 @@ stages.forEach((e, index) => {
       }
       currentNum.classList.add("numBgFlash");
       currentNum.setAttribute("onclick", `enterKey(${n - 1})`);
+      if (e === "stage3") {
+        const q = document.querySelector(".question");
+        const img = document.createElement("img");
+        img.src = "./IMGs/Aero_V-dramon.png";
+        img.classList.add("digimonImg");
+        console.log(img, q);
+        q.parentNode.insertBefore(img, q);
+      }
     }
     // settings for initial page
     else if (e === "stage1") {

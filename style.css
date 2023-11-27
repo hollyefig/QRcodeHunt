@@ -330,6 +330,14 @@ button:active {
   }
 }
 
+.digimonImg {
+  max-width: 200px;
+  width:100%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
 /* CONFETTI!!!!  */
 
 .confetti {
