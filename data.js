@@ -7,7 +7,7 @@ const data = [
       { text: "Michaelangelo", isTrue: false },
       { text: "Raphael", isTrue: false },
     ],
-    hint: "Here is your first hint to your next QR code",
+    hint: "EXCALIBUR!!",
   },
   {
     keyMsg: "Alright! One down, let's go!",
@@ -18,7 +18,7 @@ const data = [
       { text: "Lewa", isTrue: true },
       { text: "Kopaka", isTrue: false },
     ],
-    hint: "Here is your seconnddd hint to your next QR code",
+    hint: "Best Girl! 💖",
   },
   {
     keyMsg: "Halfway there, lemon on a pear!",
@@ -29,7 +29,7 @@ const data = [
       { text: "Master Tyranomon", isTrue: false },
       { text: "Ancient Greymon", isTrue: false },
     ],
-    hint: "Here is your THIRRDDD hint to your next QR code",
+    hint: "A game we both love....",
   },
   {
     keyMsg: "Just one more to go!",
@@ -52,7 +52,7 @@ const data = [
         isTrue: false,
       },
     ],
-    hint: "Get that FINAL hint",
+    hint: "Our hobbies together are the building blocks of our love!",
   },
   {
     keyMsg: "There it is!",
