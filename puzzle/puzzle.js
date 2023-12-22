@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const puzzlePieces = document.querySelectorAll(".puzzle-piece");
-  const congratsMessage = document.getElementById("congratsMessage");
+  const congratsMsg = document.getElementById("congratsMessage");
+
+  congratsMsg.style.top =
+    parseInt(getComputedStyle(congratsMsg).height) * -1 + "px";
 
   let completedPieces = 0;
 
@@ -151,7 +154,11 @@ document.addEventListener("DOMContentLoaded", function () {
     target.setAttribute("data-y", y);
   }
 
+  // & When puzzle is complete
   function showCongratsMessage() {
-    congratsMessage.style.display = "block";
+    gsap
+      .timeline({ defaults: { duration: 0.5, ease: "power1.out" } })
+      .to("#congratsMessage", { top: 0 });
+    new Audio("../sounds/wow.mp3").play();
   }
 });
