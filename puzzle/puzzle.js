@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const puzzleContainer = document.getElementById("puzzle-container");
   const puzzlePieces = document.querySelectorAll(".puzzle-piece");
   const congratsMessage = document.getElementById("congratsMessage");
-  const outerDropzone = document.getElementById("outer-dropzone");
-  const innerDropzone = document.getElementById("inner-dropzone");
 
   let completedPieces = 0;
 
