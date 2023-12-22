@@ -68,20 +68,62 @@ const proceed = () => {
     .from(".questionWrapper", { y: 40 }, "<");
 };
 
+// ~ to puzzle
+const toPuzzle = (msg) => {
+  let num = 10;
+  const updateCountdown = () => {
+    msg.textContent = `It appears we are being redirected! ${num}`;
+  };
+
+  const countDown = setInterval(() => {
+    if (num > 0) {
+      num--;
+      updateCountdown();
+    } else {
+      clearInterval(countDown);
+      // Redirect or perform other actions after the countdown reaches 0
+      setTimeout(() => {
+        window.location.href = "puzzle/puzzle.html";
+      }, 0);
+    }
+  }, 1000);
+};
+
 // GET HINT
 const getHint = () => {
   const msg = document.querySelector(".blurBgMsgWrapper span");
   let num =
     parseInt(document.querySelector(".wrapper").getAttribute("id").slice(-1)) -
     1;
-  timeline
-    .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
-    .to(".blurBgMsgWrapper h2", { height: 0, padding: 0, margin: 0, delay: 0 })
-    .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<")
-    .add(() => (msg.textContent = data[num].hint))
-    .to(msg, { color: colors.mediumDark, duration: 1, delay: 0 });
 
-  document.querySelector(".blurBg").removeAttribute("onclick");
+  if (num !== 3) {
+    timeline
+      .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
+      .to(".blurBgMsgWrapper h2", {
+        height: 0,
+        padding: 0,
+        margin: 0,
+        delay: 0,
+      })
+      .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<")
+      .add(() => (msg.textContent = data[num].hint))
+      .to(msg, { color: colors.mediumDark, duration: 1, delay: 0 });
+
+    document.querySelector(".blurBg").removeAttribute("onclick");
+  } else if (num === 3) {
+    timeline
+      .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
+      .to(".blurBgMsgWrapper h2", {
+        height: 0,
+        padding: 0,
+        margin: 0,
+        delay: 0,
+      })
+      .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<")
+      .add(() => (msg.textContent = ""))
+      .to(msg, { color: colors.mediumDark, duration: 1, delay: 0 }, "<")
+      .add(() => toPuzzle(msg));
+  }
 };
 
 // CONFETTI !!!
@@ -265,7 +307,7 @@ stages.forEach((e, index) => {
   }
 });
 
-// BLUR BG, QUESTION ANSWER REVEAL
+// ! BLUR BG, QUESTION ANSWER REVEAL
 const selectAnswer = (e) => {
   const msgH2 = document.querySelector(".blurBgMsgWrapper > div > h2"),
     msgSpan = document.querySelector(".blurBgMsgWrapper > div > span");

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const congratsMsg = document.getElementById("congratsMessage");
 
   congratsMsg.style.top =
-    parseInt(getComputedStyle(congratsMsg).height) * -1 + "px";
+    parseInt(getComputedStyle(congratsMsg).height) * -1.3 + "px";
 
   let completedPieces = 0;
 
