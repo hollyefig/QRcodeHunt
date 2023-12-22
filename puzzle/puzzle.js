@@ -2,12 +2,45 @@ document.addEventListener("DOMContentLoaded", function () {
   const puzzleContainer = document.getElementById("puzzle-container");
   const puzzlePieces = document.querySelectorAll(".puzzle-piece");
   const congratsMessage = document.getElementById("congratsMessage");
+  const outerDropzone = document.getElementById("outer-dropzone");
+  const innerDropzone = document.getElementById("inner-dropzone");
 
   let completedPieces = 0;
 
   puzzlePieces.forEach((e, index) => {
-    e.textContent = index;
+    let num = index + 1;
+    let img = document.createElement("img");
+    img.setAttribute("src", `/puzzle/IMGs/pieces/Frame${num}.png`);
+    img.setAttribute("style", "width: 100%; opacity: .5");
+
+    e.appendChild(img);
+    // e.style.backgroundImage = `url('/puzzle/IMGs/pieces/Frame${num}.png')`;
   });
+
+  // ~ randomize position start
+  const randomPos = (p, window) => {
+    let num = window - parseInt(getComputedStyle(p).width);
+    const top = Math.floor(Math.random() * num);
+    const left = Math.floor(Math.random() * num);
+    p.style.top = top + "px";
+    p.style.left = left + "px";
+
+    let dataPos = p.getAttribute("data-correct-position").split(",");
+    // change position requirements
+    dataPos = dataPos.map((d, index) => {
+      if (index === 0) {
+        const oldLeft = parseInt(d);
+        let update = oldLeft - left;
+        return update.toString();
+      }
+      if (index > 0) {
+        const oldTop = parseInt(d);
+        let update = oldTop - top;
+        return update.toString();
+      }
+    });
+    p.setAttribute("data-correct-position", dataPos.join());
+  };
 
   // ! change sizes on load
   if (window.screen.width <= 400) {
@@ -26,6 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return num.toString();
       });
       p.setAttribute("data-correct-position", dataPos.join());
+      randomPos(p, windowWidth);
+    });
+  } else if (window.screen.width > 400) {
+    let windowWidth = 400;
+    puzzlePieces.forEach((p) => {
+      randomPos(p, windowWidth);
     });
   }
 
@@ -47,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return num.toString();
         });
         p.setAttribute("data-correct-position", dataPos.join());
+        randomPos(p, windowWidth);
       });
     }
   });
@@ -65,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function dragMoveListener(event) {
     const target = event.target;
+
     const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
     const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
@@ -86,7 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
       Math.abs(currentX - parseFloat(correctPosition[0])) < 10 &&
       Math.abs(currentY - parseFloat(correctPosition[1])) < 10
     ) {
-      draggedPiece.classList.add("correct");
+      draggedPiece.children[0].classList.add("correct");
+      draggedPiece.classList.add("below");
       completedPieces++;
 
       // Check if all pieces are in the correct position
@@ -94,6 +136,22 @@ document.addEventListener("DOMContentLoaded", function () {
         showCongratsMessage();
       }
     }
+  }
+
+  function dragMoveListener(event) {
+    const target = event.target;
+
+    // Check if the piece is marked as correct, and if so, prevent dragging
+    if (target.children[0].classList.contains("correct")) {
+      return;
+    }
+
+    const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+    const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+
+    target.style.transform = `translate(${x}px, ${y}px)`;
+    target.setAttribute("data-x", x);
+    target.setAttribute("data-y", y);
   }
 
   function showCongratsMessage() {
