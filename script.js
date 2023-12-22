@@ -70,9 +70,10 @@ const proceed = () => {
 
 // ~ to puzzle
 const toPuzzle = (msg) => {
+  console.log("toPuzzle func");
   let num = 10;
   const updateCountdown = () => {
-    msg.textContent = `It appears we are being redirected! ${num}`;
+    msg.innerHTML = `<p>It appears we are being redirected!</p><p>${num}</p>`;
   };
 
   const countDown = setInterval(() => {
@@ -113,6 +114,7 @@ const getHint = () => {
   } else if (num === 3) {
     timeline
       .to(".blurBgMsgWrapper", { backgroundColor: colors.light, delay: 0.5 })
+      .add(() => (msg.textContent = "It appears we are being redirected!"))
       .to(".blurBgMsgWrapper h2", {
         height: 0,
         padding: 0,
@@ -120,7 +122,6 @@ const getHint = () => {
         delay: 0,
       })
       .to(".getHint", { height: 0, padding: 0, margin: 0, delay: 0 }, "<")
-      .add(() => (msg.textContent = ""))
       .to(msg, { color: colors.mediumDark, duration: 1, delay: 0 }, "<")
       .add(() => toPuzzle(msg));
   }

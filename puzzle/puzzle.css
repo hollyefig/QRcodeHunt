@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
 body {
     display: flex;
     justify-content: center;
@@ -19,7 +25,25 @@ body {
     --light: #fefce1;
     --displayFont: "Archivo", sans-serif;
     --copyFont: "Montserrat", sans-serif;
-  }
+}
+
+.puzzlePage {
+    display: flex;
+    flex-direction: column;
+    --fullWidth: 400px;
+    position: relative;
+    max-width: var(--fullWidth);
+    width: 100%;
+    row-gap: 10px;
+}
+
+.question {
+    font-family: var(--displayFont);
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--light);
+    padding: 0 10px;
+}
 
 #puzzle-container {
     --fullWidth: 400px;
@@ -73,7 +97,7 @@ body {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 100%;
-    font-size: 10px;
+    font-size: 14px;
     text-align: center;
 }
 

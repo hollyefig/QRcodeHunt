@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const puzzleContainer = document.querySelector(".puzzlePage");
   const puzzlePieces = document.querySelectorAll(".puzzle-piece");
   const congratsMsg = document.getElementById("congratsMessage");
+
+  gsap.from(puzzleContainer, { opacity: 0, duration: 0.5, delay: 1 });
 
   congratsMsg.style.top =
     parseInt(getComputedStyle(congratsMsg).height) * -1.3 + "px";
