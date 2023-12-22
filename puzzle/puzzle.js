@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   puzzlePieces.forEach((e, index) => {
     let num = index + 1;
     let img = document.createElement("img");
-    img.setAttribute("src", `/puzzle/IMGs/pieces/Frame${num}.png`);
+    img.setAttribute("src", `./IMGs/pieces/Frame${num}.png`);
     img.setAttribute("style", "width: 100%; opacity: .5");
 
     e.appendChild(img);
