@@ -1,0 +1,58 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+#puzzle-container {
+    --fullWidth: 400px;
+    position: relative;
+    max-width: var(--fullWidth);
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #000;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.puzzle-piece {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    background-color: hotpink;
+}
+
+.puzzle-piece.correct {
+    background-color: #27ae60; /* Green color for correct pieces */
+}
+
+.congrats-message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width:400px) {
+    
+}
