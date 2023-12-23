@@ -71,7 +71,7 @@ const proceed = () => {
 // ~ to puzzle
 const toPuzzle = (msg) => {
   console.log("toPuzzle func");
-  let num = 10;
+  let num = 5;
   const updateCountdown = () => {
     msg.innerHTML = `<p>It appears we are being redirected!</p><p>${num}</p>`;
   };
