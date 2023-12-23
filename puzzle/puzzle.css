@@ -119,3 +119,21 @@ body {
     padding: 5px 7px;
     font-size: 14px;
 }
+
+.congrats-message a {
+    display: block;
+    animation: scale 2s ease-in-out infinite;
+}
+
+@keyframes scale {
+    0% {
+        transform:scale(1);
+    }
+    50% {
+        transform:scale(1.1);
+    }
+    100% {
+        transform:scale(1);
+    }
+    
+}
